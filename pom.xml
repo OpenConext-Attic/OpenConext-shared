@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.surfnet.coin</groupId>
   <artifactId>coin-shared</artifactId>
-  <version>1.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>coin-shared</name>
   <description>coin-shared</description>
@@ -15,6 +15,7 @@
     <mysql.version>5.1.10</mysql.version>
     <commons-io.version>1.4</commons-io.version>
     <coin-test.version>1.2</coin-test.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <scm>
     <connection>https://svn.surfnet.nl/svn/coin-gui/coin-shared/trunk</connection>
@@ -45,6 +46,11 @@
     </repository>
   </repositories>
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -90,6 +96,7 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.8.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -118,7 +125,6 @@
     </dependency>
     <!-- The next two slf4j dependencies are the ones we want to use. Other 
       will be excluded. -->
-    <!-- Shouldn't they be "provided"? -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -144,6 +150,23 @@
       <artifactId>spring-context</artifactId>
       <version>${spring.version}</version>
     </dependency>
+    <!-- Mail dependencies -->
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.3</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!-- / Mail dependencies -->
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
@@ -154,6 +177,7 @@
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
       <version>2.5.2</version>
+      <scope>test</scope>
     </dependency>
 
   </dependencies>

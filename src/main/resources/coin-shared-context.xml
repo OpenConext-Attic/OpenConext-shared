@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/task
+                           http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+  
+  <task:annotation-driven executor="mailExecutor"/>
+  <task:executor id="mailExecutor" pool-size="5-25" queue-capacity="100"/>
+
+  <!-- Mail service -->
+  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="${coin-mailserver}"/>
+    <property name="port" value="${coin-mailserver-port}"/>
+    <!--
+     <property name="username" value="yourusername" />
+     <property name="password" value="yourpassword" />
+     -->
+    <property name="javaMailProperties">
+      <props>
+        <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+        <prop key="mail.smtp.auth">false</prop>
+        <!-- Use TLS to encrypt communication with SMTP server -->
+        <prop key="mail.smtp.starttls.enable">false</prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="mailService" class="nl.surfnet.coin.shared.service.impl.MailServiceImpl">
+    <property name="mailSender" ref="mailSender"/>
+  </bean>
+
+</beans>
