@@ -23,12 +23,12 @@
     <repository>
       <id>coin-repo</id>
       <name>coin-repo</name>
-      <url>http://bamboo-dev.coin.surfnetlabs.nl</url>
+      <url>dav:http://bamboo-dev.coin.surfnetlabs.nl</url>
     </repository>
     <snapshotRepository>
       <id>repo</id>
       <name>Repository Name</name>
-      <url>http://bamboo-dev.coin.surfnetlabs.nl</url>
+      <url>dav:http://bamboo-dev.coin.surfnetlabs.nl</url>
     </snapshotRepository>
   </distributionManagement>
   <repositories>
