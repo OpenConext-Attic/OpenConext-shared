@@ -18,7 +18,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <scm>
-    <connection>https://svn.surfnet.nl/svn/coin-gui/coin-shared/trunk</connection>
+    <connection>scm:svn:https://svn.surfnet.nl/svn/coin-gui/coin-shared/trunk</connection>
   </scm>
   <distributionManagement>
     <repository>
