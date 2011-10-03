@@ -15,7 +15,9 @@
  */
 package nl.surfnet.coin.shared.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -23,6 +25,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -110,22 +113,41 @@ public class GenericServiceHibernateImpl<T extends DomainObject> implements Gene
         }
         return findByCriteria(create);
     }
-    
+
     /**
-     * Use this inside subclasses as a convenience method.
+     * Convenience method for subclasses to find domain objects that match the Criterion's
+     *
+     * @param criterion array of {@link Criterion}'s
+     * @return List of domain objects
      */
     @SuppressWarnings("unchecked")
     protected List<T> findByCriteria(Criterion... criterion) {
+        List<Criterion> criterionList = new ArrayList<Criterion>(criterion.length);
+        Collections.addAll(criterionList, criterion);
+        return findByCriteriaOrdered(criterionList, Collections.<Order>emptyList());
+    }
+
+
+    /**
+     * Convenicence method for subclasses to find domain objects that match the list of Criterion's in the given order
+     *
+     * @param criterionList List of {@link Criterion}'s
+     * @param orderList List of {@link Order}'s
+     * @return Sorted list of domain objects
+     */
+    @SuppressWarnings("unchecked")
+    protected List<T> findByCriteriaOrdered(List<Criterion> criterionList, List<Order> orderList) {
         Criteria crit = portalSessionFactory.getCurrentSession().createCriteria(getPersistentClass());
-        for (Criterion c : criterion) {
+        for (Criterion c : criterionList) {
             crit.add(c);
+        }
+        for (Order order : orderList) {
+            crit.addOrder(order);
         }
         crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return crit.list();
     }
-    
-    
-    
+
     /*
      * (non-Javadoc)
      * 
