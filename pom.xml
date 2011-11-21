@@ -18,7 +18,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.surfnet.coin</groupId>
   <artifactId>coin-shared</artifactId>
-  <version>1.15.0</version>
+  <version>1.16.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>coin-shared</name>
   <description>coin-shared</description>
@@ -34,7 +34,7 @@
     <opensocialclient.version>1.6.1-SNAPSHOT-coin</opensocialclient.version>
   </properties>
   <scm>
-    <connection>scm:svn:https://svn.surfnet.nl/svn/coin-gui/coin-shared/tags/coin-shared-1.15.0</connection>
+    <connection>scm:svn:https://svn.surfnet.nl/svn/coin-gui/coin-shared/trunk</connection>
   </scm>
   <distributionManagement>
     <repository>
