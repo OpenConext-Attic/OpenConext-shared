@@ -46,12 +46,6 @@
     </property>
   </bean>
 
-  <bean id="sharedEnvironment" class="nl.surfnet.coin.shared.util.SharedEnvironment">
-    <property name="oauthKey" value="${oauthKey}"/>
-    <property name="oauthSecret" value="${oauthSecret}"/>
-    <property name="openSocialUrl" value="${coin-container-url}" />
-  </bean>
-
   <context:component-scan base-package="nl.surfnet.coin.shared"/>
 
 </beans>

@@ -31,7 +31,6 @@
     <commons-io.version>1.4</commons-io.version>
     <coin-test.version>1.2</coin-test.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <opensocialclient.version>1.6.1-SNAPSHOT-coin</opensocialclient.version>
   </properties>
   <scm>
     <connection>scm:svn:https://svn.surfnet.nl/svn/coin-gui/coin-shared/trunk</connection>
@@ -113,11 +112,6 @@
     </extensions>
   </build>
   <dependencies>
-    <dependency>
-      <groupId>com.google.code</groupId>
-      <artifactId>opensocial-java-client</artifactId>
-      <version>${opensocialclient.version}</version>
-    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
