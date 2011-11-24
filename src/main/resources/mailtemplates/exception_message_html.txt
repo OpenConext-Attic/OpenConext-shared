@@ -1,51 +1,45 @@
 <html>
 <body>
 <table>
-  <thead>
-  <tr>
-    <th>Option</th>
-    <th>Value</th>
-  </tr>
-  </thead>
   <tbody>
   <tr>
-    <td>Date</td>
+    <th>Date</th>
     <td>{0}</td>
   </tr>
   <tr>
-    <td>Time</td>
+    <th>Time</th>
     <td>{1}</td>
   </tr>
   <tr>
-    <td>Server</td>
+    <th>Server</th>
     <td>{2}</td>
   </tr>
   <tr>
-    <td>Component</td>
+    <th>Component</th>
     <td>{3}</td>
   </tr>
   <tr>
-    <td>Userid</td>
+    <th>Userid</th>
     <td>{4}</td>
   </tr>
   <tr>
-    <td>IDP</td>
+    <th>IDP</th>
     <td>{5}</td>
   </tr>
   <tr>
-    <td>SP</td>
+    <th>SP</th>
     <td>{6}</td>
   </tr>
   <tr>
-    <td>Message</td>
+    <th>Message</th>
     <td>{7}</td>
   </tr>
   <tr>
-    <td>Location</td>
+    <th>Location</th>
     <td>{8}</td>
   </tr>
   <tr>
-    <td>Details</td>
+    <th>Details</th>
     <td>{9}</td>
   </tr>
   </tbody>
