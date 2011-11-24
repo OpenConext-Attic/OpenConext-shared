@@ -1,0 +1,53 @@
+<html>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>Option</th>
+    <th>Value</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Date</td>
+    <td>{0}</td>
+  </tr>
+  <tr>
+    <td>Time</td>
+    <td>{1}</td>
+  </tr>
+  <tr>
+    <td>Server</td>
+    <td>{2}</td>
+  </tr>
+  <tr>
+    <td>Component</td>
+    <td>{3}</td>
+  </tr>
+  <tr>
+    <td>Userid</td>
+    <td>{4}</td>
+  </tr>
+  <tr>
+    <td>IDP</td>
+    <td>{5}</td>
+  </tr>
+  <tr>
+    <td>SP</td>
+    <td>{6}</td>
+  </tr>
+  <tr>
+    <td>Message</td>
+    <td>{7}</td>
+  </tr>
+  <tr>
+    <td>Location</td>
+    <td>{8}</td>
+  </tr>
+  <tr>
+    <td>Details</td>
+    <td>{9}</td>
+  </tr>
+  </tbody>
+</body>
+</html>

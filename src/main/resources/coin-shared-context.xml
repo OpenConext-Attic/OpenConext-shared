@@ -46,6 +46,10 @@
     </property>
   </bean>
 
+  <bean id="errorMessageMailer" class="nl.surfnet.coin.shared.service.ErrorMessageMailer">
+    <property name="errorMailTo" value="${coin-errormail-to}"/>
+  </bean>
+
   <context:component-scan base-package="nl.surfnet.coin.shared"/>
 
 </beans>
