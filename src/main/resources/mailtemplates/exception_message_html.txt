@@ -1,5 +1,8 @@
 <html>
 <body>
+<style type="text/css">
+th'{'vertical-align:top;'}'
+</style>
 <table>
   <tbody>
   <tr>
