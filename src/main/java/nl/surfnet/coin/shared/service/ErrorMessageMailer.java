@@ -16,7 +16,13 @@
 
 package nl.surfnet.coin.shared.service;
 
-import nl.surfnet.coin.shared.domain.ErrorMail;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.MessageFormat;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -28,11 +34,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.util.StringUtils;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.MessageFormat;
+import nl.surfnet.coin.shared.domain.ErrorMail;
 
 /**
  * Utility class to send error mails safely (should never throw any errors)
@@ -68,7 +70,6 @@ public class ErrorMessageMailer {
         return false;
       }
 
-      MessageFormat formatter = new MessageFormat(template);
       MimeMessageHelper helper = createMessage();
       helper = fillAddressDetails(helper);
       helper = addSubject(helper, errorMail);
