@@ -18,8 +18,9 @@ package nl.surfnet.coin.shared.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -29,15 +30,19 @@ import nl.surfnet.coin.shared.service.MailService;
 public class MailServiceImpl implements MailService {
 
   @Autowired
-  private MailSender mailSender;
-  
+  private JavaMailSender mailSender;
+    
+  @Async
+  public void sendAsync(MimeMessagePreparator preparator) throws MailException {
+    mailSender.send(preparator);
+  }
+
   @Async
   public void sendAsync(SimpleMailMessage msg) throws MailException {
     mailSender.send(msg);
   }
 
-
-  public void setMailSender(MailSender mailSender) {
+  public void setMailSender(JavaMailSender mailSender) {
     this.mailSender = mailSender;
   }
 }

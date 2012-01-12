@@ -19,6 +19,7 @@ package nl.surfnet.coin.shared.service.impl;
 import org.apache.log4j.Logger;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import nl.surfnet.coin.shared.service.MailService;
 
@@ -27,6 +28,14 @@ import nl.surfnet.coin.shared.service.MailService;
  */
 public class MockMailService implements MailService {
   private static final Logger logger = Logger.getLogger(MockMailService.class);
+
+  /**
+   * Logs the mail message
+   */
+  @Override
+  public void sendAsync(final MimeMessagePreparator preparator) throws MailException {
+    logger.info("Sending mail\n:" + preparator.toString());
+  }
 
   /**
    * Logs the mail message
