@@ -27,7 +27,6 @@
     <hibernate.version>3.3.2.GA</hibernate.version>
     <hibernate-annotations.version>3.4.0.GA</hibernate-annotations.version>
     <hibernate-validator.version>4.0.2.GA</hibernate-validator.version>
-    <mysql.version>5.1.10</mysql.version>
     <commons-io.version>1.4</commons-io.version>
     <coin-test.version>2.1.0-SNAPSHOT</coin-test.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
