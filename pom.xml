@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2011-2012 SURFnet bv, The Netherlands
+  ~ Copyright 2012 SURFnet bv, The Netherlands
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
     <hibernate-annotations.version>3.4.0.GA</hibernate-annotations.version>
     <hibernate-validator.version>4.0.2.GA</hibernate-validator.version>
     <commons-io.version>1.4</commons-io.version>
-    <coin-test.version>2.1.0-SNAPSHOT</coin-test.version>
+    <coin-test.version>2.1.0</coin-test.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <scm>
