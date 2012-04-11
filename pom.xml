@@ -32,8 +32,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <scm>
-    <connection>scm:svn:https://svn.surfnet.nl/svn/coin-gui/coin-shared/trunk</connection>
+    <connection>scm:git:git@github.com:OpenConext/OpenConext-shared.git</connection>
+    <url>scm:git:git@github.com:OpenConext/OpenConext-shared.git</url>
+    <developerConnection>scm:git:git@github.com:OpenConext/OpenConext-shared.git</developerConnection>
   </scm>
+
   <distributionManagement>
     <repository>
       <id>coin-repo</id>
