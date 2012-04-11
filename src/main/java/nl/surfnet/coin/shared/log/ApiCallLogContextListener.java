@@ -25,6 +25,7 @@ import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
@@ -71,7 +72,8 @@ public class ApiCallLogContextListener implements ServletRequestListener {
    * @return the apiCallLog
    */
   public static ApiCallLog getApiCallLog() {
-    return apiCallLogHolder.get();
+    ApiCallLog apiCallLog = apiCallLogHolder.get();
+    return (apiCallLog == null) ? new ApiCallLog() :apiCallLog;
   }
 
 }
