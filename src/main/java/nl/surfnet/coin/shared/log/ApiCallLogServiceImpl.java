@@ -52,8 +52,8 @@ public class ApiCallLogServiceImpl implements ApiCallLogService {
    */
   @Override
   public void saveApiCallLog(ApiCallLog log) {
-    Object[] args = new Object[] { log.getUserId(), log.getSpEntityId(), log.getIpAddress(), log.getApiVersion(), log.getResourceUrl(),
-        log.getConsumerKey() };
+    Object[] args = new Object[] { log.getUserId(), log.getSpEntityId(), log.getIpAddress(), log.getApiVersion(),
+        log.getResourceUrl(), log.getConsumerKey() };
     jdbcTemplate
         .update(
             "INSERT INTO api_call_log (user_id, spentity_id, ip_address, api_version, resource_url, consumer_key) VALUES  (?, ?, ?, ?, ?, ?)",
@@ -69,20 +69,24 @@ public class ApiCallLogServiceImpl implements ApiCallLogService {
    */
   @Override
   public List<ApiCallLog> findApiCallLog(String serviceProvider) {
-    return jdbcTemplate.query("select user_id, spentity_id, ip_address, api_version, resource_url, consumer_key, log_timestamp from api_call_log where spentity_id = ?",new String[]{serviceProvider}, new RowMapper<ApiCallLog>(){
+    return jdbcTemplate
+        .query(
+            "select user_id, spentity_id, ip_address, api_version, resource_url, consumer_key, log_timestamp from api_call_log where spentity_id = ?",
+            new String[] { serviceProvider }, new RowMapper<ApiCallLog>() {
 
-      @Override
-      public ApiCallLog mapRow(ResultSet rs, int rowNum) throws SQLException {
-        ApiCallLog log = new ApiCallLog();
-        log.setApiVersion(rs.getString("api_version"));
-        log.setConsumerKey(rs.getString("consumer_key"));
-        log.setIpAddress(rs.getString("ip_address"));
-        log.setResourceUrl(rs.getString("resource_url"));
-        log.setSpEntityId(rs.getString("spentity_id"));
-        log.setTimestamp(rs.getDate("log_timestamp"));
-        log.setUserId(rs.getString("user_id"));
-        return log;
-      }} );
+              @Override
+              public ApiCallLog mapRow(ResultSet rs, int rowNum) throws SQLException {
+                ApiCallLog log = new ApiCallLog();
+                log.setApiVersion(rs.getString("api_version"));
+                log.setConsumerKey(rs.getString("consumer_key"));
+                log.setIpAddress(rs.getString("ip_address"));
+                log.setResourceUrl(rs.getString("resource_url"));
+                log.setSpEntityId(rs.getString("spentity_id"));
+                log.setTimestamp(rs.getDate("log_timestamp"));
+                log.setUserId(rs.getString("user_id"));
+                return log;
+              }
+            });
   }
 
   /*

@@ -25,35 +25,45 @@ import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
+ * {@link ServletRequestListener} for storing information that needs to end up
+ * in the log regarding calls to SURFconext endpoints in the Request local
+ * thread. Because not all information is 'present' on the place where we
+ * actually store the log record (e.g. shindig service implementation) and we
+ * can't modify all Shindig interfaces to pass the info we need to apply the
+ * {@link ThreadLocal} strategy.
  * 
- *
  */
 public class ApiCallLogContextListener implements ServletRequestListener {
-  private static final ThreadLocal<ApiCallLog> apiCallLogHolder =
-    new ThreadLocal<ApiCallLog>();
 
-  /* (non-Javadoc)
-   * @see javax.servlet.ServletRequestListener#requestDestroyed(javax.servlet.ServletRequestEvent)
+  private static final ThreadLocal<ApiCallLog> apiCallLogHolder = new ThreadLocal<ApiCallLog>();
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see javax.servlet.ServletRequestListener#requestDestroyed(javax.servlet.
+   * ServletRequestEvent)
    */
   @Override
   public void requestDestroyed(ServletRequestEvent sre) {
     apiCallLogHolder.set(null);
-    
+
   }
 
-  /* (non-Javadoc)
-   * @see javax.servlet.ServletRequestListener#requestInitialized(javax.servlet.ServletRequestEvent)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see javax.servlet.ServletRequestListener#requestInitialized(javax.servlet.
+   * ServletRequestEvent)
    */
   @Override
   public void requestInitialized(ServletRequestEvent requestEvent) {
     ApiCallLog apiCallLog = new ApiCallLog();
     HttpServletRequest request = (HttpServletRequest) requestEvent.getServletRequest();
     String queryString = request.getQueryString();
-     StringBuffer requestURL = request.getRequestURL();
+    StringBuffer requestURL = request.getRequestURL();
     if (StringUtils.hasText(queryString)) {
       requestURL.append("?").append(queryString);
     }
@@ -61,7 +71,7 @@ public class ApiCallLogContextListener implements ServletRequestListener {
       apiCallLog.setResourceUrl(URLEncoder.encode(requestURL.toString(), "utf-8"));
       apiCallLog.setIpAddress(request.getRemoteAddr());
     } catch (UnsupportedEncodingException e) {
-      //will never happen as utf-8 is the encoding
+      // will never happen as utf-8 is the encoding
     }
     apiCallLogHolder.set(apiCallLog);
   }
@@ -73,7 +83,7 @@ public class ApiCallLogContextListener implements ServletRequestListener {
    */
   public static ApiCallLog getApiCallLog() {
     ApiCallLog apiCallLog = apiCallLogHolder.get();
-    return (apiCallLog == null) ? new ApiCallLog() :apiCallLog;
+    return (apiCallLog == null) ? new ApiCallLog() : apiCallLog;
   }
 
 }
