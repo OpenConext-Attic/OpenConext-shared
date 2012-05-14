@@ -1,29 +1,38 @@
-<!-- ~ Copyright 2012 SURFnet bv, The Netherlands ~ ~ Licensed under the 
-  Apache License, Version 2.0 (the "License"); ~ you may not use this file 
-  except in compliance with the License. ~ You may obtain a copy of the License 
-  at ~ ~ http://www.apache.org/licenses/LICENSE-2.0 ~ ~ Unless required by 
-  applicable law or agreed to in writing, software ~ distributed under the 
-  License is distributed on an "AS IS" BASIS, ~ WITHOUT WARRANTIES OR CONDITIONS 
-  OF ANY KIND, either express or implied. ~ See the License for the specific 
-  language governing permissions and ~ limitations under the License. -->
+<!--
+  Copyright 2012 SURFnet bv, The Netherlands
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.surfnet.coin</groupId>
+    <artifactId>coin-master</artifactId>
+    <version>2.6.0-SNAPSHOT</version>
+  </parent>
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.surfnet.coin</groupId>
   <artifactId>coin-shared</artifactId>
   <version>2.6.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>coin-shared</name>
-  <description>coin-shared</description>
+  <name>OpenConext : coin-shared</name>
+  <description>Library of shared components for OpenConext applications</description>
+
   <properties>
-    <spring.version>3.0.3.RELEASE</spring.version>
-    <javax.servlet.version>2.5</javax.servlet.version>
-    <hibernate.version>3.3.2.GA</hibernate.version>
-    <hibernate-annotations.version>3.4.0.GA</hibernate-annotations.version>
-    <hibernate-validator.version>4.0.2.GA</hibernate-validator.version>
-    <commons-io.version>1.4</commons-io.version>
     <coin-test.version>2.3.0</coin-test.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <coin-master.test-dependencies.version>2.6.0-SNAPSHOT</coin-master.test-dependencies.version>
+    <joda-time.version>2.1</joda-time.version>
   </properties>
   <scm>
     <connection>scm:git:git@github.com:OpenConext/OpenConext-shared.git</connection>
@@ -31,19 +40,8 @@
     <developerConnection>scm:git:git@github.com:OpenConext/OpenConext-shared.git</developerConnection>
   </scm>
 
-  <distributionManagement>
-    <repository>
-      <id>coin-repo</id>
-      <name>coin-repo</name>
-      <url>dav:http://bamboo-dev.coin.surfnetlabs.nl</url>
-    </repository>
-    <snapshotRepository>
-      <id>repo</id>
-      <name>Repository Name</name>
-      <url>dav:http://bamboo-dev.coin.surfnetlabs.nl</url>
-    </snapshotRepository>
-  </distributionManagement>
   <repositories>
+    <!-- Bamboo is here to retrieve the coin-master pom -->
     <repository>
       <snapshots>
         <enabled>true</enabled>
@@ -56,6 +54,7 @@
       <url>http://bamboo-dev.coin.surfnetlabs.nl</url>
     </repository>
   </repositories>
+
   <build>
     <resources>
       <resource>
@@ -65,157 +64,105 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.2.2</version>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>2.1.2</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
-        <version>2.9</version>
+        <version>${maven.plugin.eclipse.version}</version>
         <configuration>
           <ajdtVersion>none</ajdtVersion>
         </configuration>
       </plugin>
     </plugins>
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-webdav</artifactId>
-        <version>1.0-beta-2</version>
-      </extension>
-    </extensions>
   </build>
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>${commons-io.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>${javax.servlet.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>${hibernate.version}</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-annotations</artifactId>
-      <version>${hibernate-annotations.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
-      <version>1.0.0.GA</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>${hibernate-validator.version}</version>
     </dependency>
-    <!-- The next two slf4j dependencies are the ones we want to use. Other 
+    <!-- The next two slf4j dependencies are the ones we want to use. Other
       will be excluded. -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.5.8</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <version>1.5.8</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
-      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
-      <version>2.0</version>
+      <version>${joda-time.version}</version>
     </dependency>
     <!-- Mail dependencies -->
     <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>
-      <version>1.4.3</version>
     </dependency>
     <dependency>
       <groupId>javax.activation</groupId>
       <artifactId>activation</artifactId>
-      <version>1.1</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>${spring.version}</version>
-      <scope>test</scope>
     </dependency>
     <!-- / Mail dependencies -->
+    <dependency>
+      <groupId>org.surfnet.coin</groupId>
+      <artifactId>coin-master-test-dependencies</artifactId>
+      <version>${coin-master.test-dependencies.version}</version>
+      <type>pom</type>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.surfnet.coin</groupId>
       <artifactId>coin-test</artifactId>
       <version>${coin-test.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>1.8.5</version>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>${hsqldb.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>2.5.2</version>
       <scope>test</scope>
     </dependency>
 
