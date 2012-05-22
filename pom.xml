@@ -33,6 +33,7 @@
     <coin-test.version>2.3.0</coin-test.version>
     <coin-master.test-dependencies.version>2.6.0-SNAPSHOT</coin-master.test-dependencies.version>
     <joda-time.version>2.1</joda-time.version>
+    <ehcache.version>2.5.1</ehcache.version>
   </properties>
   <scm>
     <connection>scm:git:git@github.com:OpenConext/OpenConext-shared.git</connection>
@@ -127,6 +128,11 @@
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
       <version>${joda-time.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-core</artifactId>
+      <version>${ehcache.version}</version>
     </dependency>
     <!-- Mail dependencies -->
     <dependency>
