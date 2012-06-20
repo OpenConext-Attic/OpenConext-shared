@@ -18,7 +18,7 @@
   <parent>
     <groupId>org.surfnet.coin</groupId>
     <artifactId>coin-master</artifactId>
-    <version>2.8.1</version>
+    <version>2.8.2</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -30,8 +30,8 @@
   <description>Library of shared components for OpenConext applications</description>
 
   <properties>
-    <coin-test.version>2.8.0</coin-test.version>
-    <coin-master.test-dependencies.version>2.8.1</coin-master.test-dependencies.version>
+    <coin-test.version>2.8.1</coin-test.version>
+    <coin-master.test-dependencies.version>2.8.2</coin-master.test-dependencies.version>
     <joda-time.version>2.1</joda-time.version>
     <ehcache.version>2.5.1</ehcache.version>
   </properties>
