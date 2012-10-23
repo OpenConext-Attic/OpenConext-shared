@@ -24,21 +24,19 @@ import org.springframework.cache.interceptor.KeyGenerator;
  * {@link KeyGenerator} that also takes into account the methodName when
  * generating keys. This appeared to be necessary in JanusClientDetailsService
  * (see the #testCache method in the corresponding unit test class)
- * 
+ *
+ * Also added target.hashCode(), to differentiate between cacheable methods that have the same signature
+ * (potentially even the same class, only being different instances of the class)
  */
 public class MethodNameAwareCacheKeyGenerator extends DefaultKeyGenerator implements KeyGenerator {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.springframework.cache.interceptor.KeyGenerator#generate(java.lang.Object
-   * , java.lang.reflect.Method, java.lang.Object[])
-   */
   @Override
   public Object generate(Object target, Method method, Object... params) {
     Object hash = super.generate(target, method, params);
-    return new StringBuilder(hash != null ? hash.toString() : "31").append(method.getName()).toString();
+    return new StringBuilder(hash != null ? hash.toString() : "31")
+      .append(method.getName())
+      .append(target.hashCode())
+      .toString();
   }
 
 }
