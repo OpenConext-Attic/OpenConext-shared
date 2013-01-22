@@ -89,6 +89,10 @@ public class ConextMDC {
    * @return formatted, multiline string
    */
   public static String toMessage() {
-    return String.format("=Beginning of diagnostics=\n%s\n=End of diagnostics=", MDC.get(DATA_KEY));
+    String data = MDC.get(DATA_KEY);
+    if (data != null && data.length() > 0) {
+      return String.format("=Beginning of diagnostics=\n%s\n=End of diagnostics=", data);
+    }
+    return "no data";
   }
 }

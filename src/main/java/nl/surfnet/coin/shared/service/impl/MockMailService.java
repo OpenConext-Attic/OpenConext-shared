@@ -16,18 +16,19 @@
 
 package nl.surfnet.coin.shared.service.impl;
 
-import org.apache.log4j.Logger;
+import nl.surfnet.coin.shared.service.MailService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-
-import nl.surfnet.coin.shared.service.MailService;
 
 /**
  * Mock implementation for {@link MailService}
  */
 public class MockMailService implements MailService {
-  private static final Logger logger = Logger.getLogger(MockMailService.class);
+  private static final Logger logger = LoggerFactory.getLogger(MockMailService.class);
 
   /**
    * Logs the mail message
@@ -44,5 +45,4 @@ public class MockMailService implements MailService {
   public void sendAsync(SimpleMailMessage msg) throws MailException {
     logger.info("Sending mail\n:" + msg.toString());
   }
-
 }

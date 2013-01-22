@@ -16,18 +16,18 @@
 
 package nl.surfnet.coin.shared.service;
 
-import org.apache.log4j.Logger;
+import javax.mail.internet.MimeMessage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
 /**
  * Mock JavaMailSender
  */
 public class MockJavaMailSender extends JavaMailSenderImpl {
-  private static final Logger logger = Logger.getLogger(MockJavaMailSender.class);
+  private static final Logger logger = LoggerFactory.getLogger(MockJavaMailSender.class);
 
   @Override
   public void send(MimeMessage mimeMessage) throws MailException {

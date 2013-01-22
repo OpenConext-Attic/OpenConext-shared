@@ -23,25 +23,25 @@ import java.text.MessageFormat;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import nl.surfnet.coin.shared.domain.ErrorMail;
+
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.util.StringUtils;
 
-import nl.surfnet.coin.shared.domain.ErrorMail;
-
 /**
  * Utility class to send error mails safely (should never throw any errors)
  */
 public class ErrorMessageMailer {
-  private static final Logger logger = Logger
-          .getLogger(ErrorMessageMailer.class);
+  private static final Logger logger = LoggerFactory.getLogger(ErrorMessageMailer.class);
   private static final String FROM_ADDRESS = "noreply@surfnet.nl";
   private static final String MESSAGE_SUBJECT = "[SURFconext][{0}][{1}] {2}";
   public static final String MAIL_TEMPLATE = "exception_message_html.txt";
