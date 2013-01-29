@@ -51,7 +51,7 @@ public class MemoryAppenderTest {
     memoryAppender.setContext(lc);
     memoryAppender.start();
 
-    Logger oompaLogger = (Logger) LoggerFactory.getLogger("dump");
+    Logger oompaLogger = (Logger) LoggerFactory.getLogger(MemoryAppender.DUMP_LOGGER);
     logger = lc.getLogger(MemoryAppenderTest.class);
 //    logger = org.slf4j.LoggerFactory.getLogger(MemoryAppenderTest.class);
     logger.addAppender(memoryAppender);

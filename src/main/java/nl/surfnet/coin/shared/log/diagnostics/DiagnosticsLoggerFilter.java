@@ -30,7 +30,6 @@ public class DiagnosticsLoggerFilter implements Filter {
 
 
   public static final String MEMORY_APPENDER = "MEMORY";
-
   private MemoryAppender<LoggingEvent> memoryAppender;
 
   @Override

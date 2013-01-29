@@ -32,7 +32,7 @@
     </encoder>
   </appender>
 
-  <logger name="dump">
+  <logger name="DUMPLOGGER">
     <appender-ref ref="externalFile" />
   </logger>
 
