@@ -21,6 +21,8 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
+
+
   <appender name="MEMORYAPPENDER" class="nl.surfnet.coin.shared.log.diagnostics.MemoryAppender" />
 
   <appender name="DUMPAPPENDER" class="ch.qos.logback.core.FileAppender">

@@ -48,15 +48,15 @@ import ch.qos.logback.core.read.CyclicBufferAppender;
  *        &lt;pattern&gt;%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n&lt;/pattern&gt;
  *    &lt;/encoder&gt;
  *  &lt;/appender&gt;
-
- *  &lt;logger name=&quot;DUMPLOGGER&quot;&gt;
+ *  &lt;appender name=&quot;MEMORYAPPENDER&quot; class=&quot;nl.surfnet.coin.shared.log.diagnostics.MemoryAppender&quot; /&gt;
+ *  &lt;logger name=&quot;MEMORYLOGGER&quot;&gt;
+ *    &lt;appender-ref ref=&quot;MEMORYAPPENDER&quot; /&gt;
  *    &lt;appender-ref ref=&quot;DUMPAPPENDER&quot; /&gt;
  *  &lt;/logger&gt;
- *  &lt;appender name=&quot;MEMORY&quot; class=&quot;nl.surfnet.coin.shared.log.diagnostics.MemoryAppender&quot; /&gt;
  *
  *  &lt;root level=&quot;info&quot;&gt;
  *    &lt;appender-ref ref=&quot;file&quot;/&gt;
- *    &lt;appender-ref ref=&quot;MEMORY&quot; /&gt;
+ *    &lt;appender-ref ref=&quot;MEMORYAPPENDER&quot; /&gt;
  *  &lt;/root&gt;
  *  </pre>
  *  </blockquote>
@@ -121,8 +121,9 @@ public class MemoryAppender extends CyclicBufferAppender<ILoggingEvent> {
       return;
     }
 
+    Appender<ILoggingEvent> dumpAppender = getDumpAppender();
     for (ILoggingEvent event : events) {
-      getDumpAppender().doAppend(event);
+      dumpAppender.doAppend(event);
     }
   }
 
