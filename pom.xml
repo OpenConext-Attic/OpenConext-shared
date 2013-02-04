@@ -200,5 +200,11 @@
       <version>1.12</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.sun.jersey.contribs</groupId>
+      <artifactId>jersey-apache-client4</artifactId>
+      <version>1.12</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>

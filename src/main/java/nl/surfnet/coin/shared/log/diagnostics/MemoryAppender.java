@@ -16,6 +16,9 @@
 
 package nl.surfnet.coin.shared.log.diagnostics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
@@ -46,7 +49,7 @@ import ch.qos.logback.core.read.CyclicBufferAppender;
  *    &lt;/encoder&gt;
  *  &lt;/appender&gt;
 
- *  &lt;logger name=&quot;dump&quot;&gt;
+ *  &lt;logger name=&quot;DUMPLOGGER&quot;&gt;
  *    &lt;appender-ref ref=&quot;DUMPAPPENDER&quot; /&gt;
  *  &lt;/logger&gt;
  *  &lt;appender name=&quot;MEMORY&quot; class=&quot;nl.surfnet.coin.shared.log.diagnostics.MemoryAppender&quot; /&gt;
@@ -63,28 +66,26 @@ import ch.qos.logback.core.read.CyclicBufferAppender;
  *
  *
  * </p>
- * @param <E> The type to log (probably a {@link ILoggingEvent})
  */
-public class MemoryAppender<E> extends CyclicBufferAppender {
+public class MemoryAppender extends CyclicBufferAppender<ILoggingEvent> {
   public static final String MDC_DISCRIMINATOR_FIELD = "nl.surfnet.coin.shared.log.diagnostics.SESSION_DISCRIMINATOR";
 
-  public static final String DUMP_LOGGER = "DUMPLOGGER";
+  public static final String MEMORY_LOGGER = "MEMORYLOGGER";
   public static final String DEFAULT_DUMP_APPENDER = "DUMPAPPENDER";
 
 
-  private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(MemoryAppender.class);
   private String dumpAppenderName = DEFAULT_DUMP_APPENDER;
 
   /**
    * Appender to use for eventual logging when requested.
-   * @param dumpAppenderName
+   * @param dumpAppenderName the name of the dumpAppender
    */
   public void setDumpAppender(String dumpAppenderName) {
     this.dumpAppenderName = dumpAppenderName;
   }
 
   protected Appender<ILoggingEvent> getDumpAppender() {
-    Logger rl = (Logger) LoggerFactory.getLogger(DUMP_LOGGER);
+    Logger rl = (Logger) LoggerFactory.getLogger(MEMORY_LOGGER);
     Appender<ILoggingEvent> appender = rl.getAppender(dumpAppenderName);
     Assert.notNull(appender, "Configured dumpAppender ('" + dumpAppenderName + "') cannot be found");
     return appender;
@@ -92,12 +93,11 @@ public class MemoryAppender<E> extends CyclicBufferAppender {
 
   /**
    * Dump all stored events for the given discriminator (looked up in the MDC)
-   * @param discriminator
+   * @param discriminator the discriminator to filter on
    */
   public void dump(String discriminator) {
     Appender<ILoggingEvent> dumpAppender = getDumpAppender();
     if (dumpAppender == null) {
-      LOG.error("DumpAppender not set, cannot dump");
       return;
     }
 
@@ -105,14 +105,41 @@ public class MemoryAppender<E> extends CyclicBufferAppender {
       throw new IllegalArgumentException("Discriminator cannot be null");
     }
 
+    List<ILoggingEvent> eventsToDump = getBuffer(discriminator);
+    for (ILoggingEvent event : eventsToDump) {
+      dumpAppender.doAppend(event);
+    }
+  }
+
+  /**
+   * Accept an arbitrary list of events and dump them to the dump appender.
+   * Useful for dumping externally saved events (for example in an http session.
+   * @param events the events to dump
+   */
+  public void dumpExternal(List<ILoggingEvent> events) {
+    if (events == null) {
+      return;
+    }
+
+    for (ILoggingEvent event : events) {
+      getDumpAppender().doAppend(event);
+    }
+  }
+
+  /**
+   * Get the events for the given discriminator from the buffer
+   * @param discriminator
+   * @return the list of ILoggingEvents
+   */
+  public List<ILoggingEvent> getBuffer(String discriminator) {
     int length = getLength();
-    if (length > 0) {
+    List<ILoggingEvent> events = new ArrayList<ILoggingEvent>(length);
       for(int i = 0; i < length; i++) {
-        ILoggingEvent loggingEvent = (ILoggingEvent) get(i);
-        if (discriminator.equals(loggingEvent.getMDCPropertyMap().get(MDC_DISCRIMINATOR_FIELD))) {
-          dumpAppender.doAppend(loggingEvent);
-        }
+      ILoggingEvent loggingEvent = (ILoggingEvent) get(i);
+      if (discriminator.equals(loggingEvent.getMDCPropertyMap().get(MDC_DISCRIMINATOR_FIELD))) {
+        events.add(loggingEvent);
       }
     }
+    return events;
   }
 }

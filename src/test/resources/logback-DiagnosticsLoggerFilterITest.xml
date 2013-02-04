@@ -21,34 +21,32 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
+  <appender name="MEMORYAPPENDER" class="nl.surfnet.coin.shared.log.diagnostics.MemoryAppender" />
 
-  <appender name="externalFile" class="ch.qos.logback.core.FileAppender">
+  <appender name="DUMPAPPENDER" class="ch.qos.logback.core.FileAppender">
     <!-- truncate the file for every test -->
     <append>false</append>
 
     <file>target/dump.log</file>
     <encoder>
-      <pattern>%-5level - %msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} --by-memory-logger-- %-5level - %msg%n</pattern>
     </encoder>
   </appender>
 
-  <logger name="DUMPLOGGER">
-    <appender-ref ref="externalFile" />
+  <logger name="MEMORYLOGGER">
+    <appender-ref ref="DUMPAPPENDER" />
+    <appender-ref ref="MEMORYAPPENDER" />
   </logger>
 
-  <appender name="MEMORY" class="nl.surfnet.coin.shared.log.diagnostics.MemoryAppender">
-    <dumpAppender>externalFile</dumpAppender>
-  </appender>
 
   <logger name="org.eclipse.jetty" level="warn">
     <appender-ref ref="console" />
   </logger>
-  <logger name="nl.surfnet.coin" level="debug">
-    <appender-ref ref="console" />
+  <logger name="nl.surfnet" level="debug">
+    <appender-ref ref="MEMORYAPPENDER" />
   </logger>
-  <root level="info">
+  <root level="debug">
     <appender-ref ref="console"/>
-    <appender-ref ref="MEMORY" />
   </root>
 
 
