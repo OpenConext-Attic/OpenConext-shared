@@ -84,11 +84,14 @@ public class DiagnosticsLoggerFilter implements Filter {
           // Store buffered logging events in session, if session available
           List<ILoggingEvent> loggingEvents = memoryAppender.getBuffer(discriminator);
           LOG.debug("Request processed successfully. Will save {} loggingEvents from this request in session", loggingEvents.size());
-          if (session.getAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER) != null) {
-            // Merge with previous requests' buffer
-            ((List<ILoggingEvent>) session.getAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER)).addAll(loggingEvents);
-          } else {
-            session.setAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER, loggingEvents);
+
+          synchronized (session) {
+            if (session.getAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER) != null) {
+              // Merge with previous requests' buffer
+              ((List<ILoggingEvent>) session.getAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER)).addAll(loggingEvents);
+            } else {
+              session.setAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER, loggingEvents);
+            }
           }
         }
       }
@@ -108,8 +111,10 @@ public class DiagnosticsLoggerFilter implements Filter {
   private void dumpAggregatedLogEvents(String discriminator, HttpServletRequest req) {
     HttpSession session = req.getSession(false);
     if (session != null) {
-      memoryAppender.dumpExternal((List<ILoggingEvent>) session.getAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER));
-      session.removeAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER);
+      synchronized (session) {
+        memoryAppender.dumpExternal((List<ILoggingEvent>) session.getAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER));
+        session.removeAttribute(SESSION_ATTRIBUTE_LOG_EVENTS_BUFFER);
+      }
     }
     memoryAppender.dump(discriminator);
   }
