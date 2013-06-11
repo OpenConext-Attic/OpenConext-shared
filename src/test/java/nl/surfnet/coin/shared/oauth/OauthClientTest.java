@@ -124,6 +124,6 @@ public class OauthClientTest {
   }
 
   private String urlBase() {
-    return "http://" + server.getServiceAddress().getHostName() + ":" + server.getServiceAddress().getPort();
+    return "http://" + server.getServiceAddress().getHostString() + ":" + server.getServiceAddress().getPort();
   }
 }
