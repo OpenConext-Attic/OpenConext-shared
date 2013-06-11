@@ -145,7 +145,7 @@ public abstract class OauthClient {
   /*
    *  (T) Arrays.<T>asList(body) won't work as the type is not inferred and we end up with a list containing one entry: the array
    */
-  private <T> T getListResult(T[] body) {
+  protected <T> T getListResult(T[] body) {
     List<T> result = new ArrayList<T>();
     T[] arr = body;
     for (T t : arr) {
