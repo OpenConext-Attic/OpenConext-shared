@@ -18,20 +18,20 @@
   <parent>
     <groupId>org.surfnet.coin</groupId>
     <artifactId>coin-master</artifactId>
-    <version>3.8.1-SNAPSHOT</version>
+    <version>3.10.0-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.surfnet.coin</groupId>
   <artifactId>coin-shared</artifactId>
-  <version>3.8.1-SNAPSHOT</version>
+  <version>3.10.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>OpenConext : coin-shared</name>
   <description>Library of shared components for OpenConext applications</description>
 
   <properties>
-    <coin-test.version>3.2.0-SNAPSHOT</coin-test.version>
-    <coin-master.test-dependencies.version>3.8.1-SNAPSHOT</coin-master.test-dependencies.version>
+    <coin-test.version>3.10.0-SNAPSHOT</coin-test.version>
+    <coin-master.test-dependencies.version>3.10.0-SNAPSHOT</coin-master.test-dependencies.version>
     <ehcache.version>2.5.1</ehcache.version>
   </properties>
   <scm>
