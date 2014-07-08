@@ -16,6 +16,12 @@
 
 package nl.surfnet.coin.shared.log.diagnostics;
 
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,13 +37,6 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.read.ListAppender;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class MemoryAppenderTest {
 
@@ -52,7 +51,7 @@ public class MemoryAppenderTest {
     System.setProperty("logback.configurationFile", "logback-empty.xml");
 
     lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-    memoryAppender =new MemoryAppender();
+    memoryAppender = new MemoryAppender();
     memoryAppender.setContext(lc);
     memoryAppender.start();
 
@@ -65,20 +64,21 @@ public class MemoryAppenderTest {
     memoryAppender.setDumpAppender("console");
 //    StatusPrinter.print(lc);
   }
+
   @Test
-  public void testDump() {
+  public void testDump() throws InterruptedException {
 
     MDC.put(MemoryAppender.MDC_DISCRIMINATOR_FIELD, "mysession");
     logger.debug("foo");
     logger.debug("bar");
     MDC.put(MemoryAppender.MDC_DISCRIMINATOR_FIELD, "notMysession");
     logger.debug("baz");
-
     memoryAppender.dump("mysession");
-
-    verify(dumpAppender, times(2)).doAppend(any());
-
+    await().atMost(2, SECONDS).until(() -> verify(dumpAppender, times(2)).doAppend(any()));
   }
+
+
+
   @Test
   public void testDoNotDump() {
 
@@ -93,7 +93,7 @@ public class MemoryAppenderTest {
   @Test
   public void dumpExternal() {
     Logger dumplogger = (Logger) LoggerFactory.getLogger(MemoryAppender.MEMORY_LOGGER);
-    ListAppender<ILoggingEvent> dumpAppender = new ListAppender<ILoggingEvent>();
+    ListAppender<ILoggingEvent> dumpAppender = new ListAppender<>();
     dumpAppender.setContext(lc);
     dumpAppender.start();
     dumpAppender.setName("DUMPAPPENDER");
@@ -101,7 +101,7 @@ public class MemoryAppenderTest {
 
     MemoryAppender appender = new MemoryAppender();
     appender.setDumpAppender("DUMPAPPENDER");
-    List<ILoggingEvent> logEvents = Arrays.asList((ILoggingEvent) new LoggingEvent("ROOT", dumplogger, Level.INFO, "the message", null,null));
+    List<ILoggingEvent> logEvents = Arrays.asList((ILoggingEvent) new LoggingEvent("ROOT", dumplogger, Level.INFO, "the message", null, null));
     appender.dumpExternal(logEvents);
     assertEquals(1, dumpAppender.list.size());
     assertEquals("the message", dumpAppender.list.get(0).getMessage());
