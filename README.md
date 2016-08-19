@@ -1,3 +1,7 @@
+# Deprecated
+
+This repository is deprecated.
+
 # SURFconext Shared
 
 ## About OpenConext
